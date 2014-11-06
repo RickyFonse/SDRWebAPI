@@ -9,7 +9,6 @@
         public int StateId { get; set; }
         public string PostalCode { get; set; }
         public int PropertyId { get; set; }
-        //public PropertyDTO Property { get; set; }
         public StateDTO State { get; set; }
     }
 }
