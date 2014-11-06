@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30723.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SDRWebAPI", "SDRWebAPI\SDRWebAPI.csproj", "{573332BD-CC48-481E-9BC2-DE8640150C97}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SDRWebAPI.Tests", "SDRWebAPI.Tests\SDRWebAPI.Tests.csproj", "{533148BB-588E-4F72-8577-CBE250CCC713}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SDRDAL", "SDRDAL\SDRDAL.csproj", "{5FD15C3C-A8F0-4C2A-AC7C-B5E7C42FD8E4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SDRBL", "SDRBL\SDRBL.csproj", "{44EDF96B-0BFA-4930-AB08-AF14E1C804DF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{573332BD-CC48-481E-9BC2-DE8640150C97}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{573332BD-CC48-481E-9BC2-DE8640150C97}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{573332BD-CC48-481E-9BC2-DE8640150C97}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{573332BD-CC48-481E-9BC2-DE8640150C97}.Release|Any CPU.Build.0 = Release|Any CPU
+		{533148BB-588E-4F72-8577-CBE250CCC713}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{533148BB-588E-4F72-8577-CBE250CCC713}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{533148BB-588E-4F72-8577-CBE250CCC713}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{533148BB-588E-4F72-8577-CBE250CCC713}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5FD15C3C-A8F0-4C2A-AC7C-B5E7C42FD8E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5FD15C3C-A8F0-4C2A-AC7C-B5E7C42FD8E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5FD15C3C-A8F0-4C2A-AC7C-B5E7C42FD8E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5FD15C3C-A8F0-4C2A-AC7C-B5E7C42FD8E4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{44EDF96B-0BFA-4930-AB08-AF14E1C804DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44EDF96B-0BFA-4930-AB08-AF14E1C804DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44EDF96B-0BFA-4930-AB08-AF14E1C804DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44EDF96B-0BFA-4930-AB08-AF14E1C804DF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
