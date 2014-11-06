@@ -12,7 +12,7 @@ namespace SDRWebAPI.Controllers
     public class PropertyController : ApiController
     {
         // GET: api/Property
-        public IEnumerable<PropertyDTO> Get()
+        public IEnumerable<PropertyListDataDTO> Get()
         {
             var propertyHandler = new PropertyHandler();
             return propertyHandler.GetProperties();
