@@ -91,10 +91,24 @@ namespace SDRBL.Handlers
         //    return propertyDTOList;
         //}
         //#endregion
+        #region Dispose Region
+        protected void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (db != null)
+                {
+                    db.Dispose();
+                    db = null;
+                }
+            }
+        }
 
         public void Dispose()
         {
-            db.Dispose();
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
+#endregion
     }
 }
