@@ -9,33 +9,33 @@ using SDRBL.Handlers;
 
 namespace SDRWebAPI.Controllers
 {
-    public class PropertyController : ApiController
+    public class ResourceController : ApiController
     {
-        private PropertyHandler property = new PropertyHandler();
+        private FileHandler file = new FileHandler();
 
-        // GET: api/Property
-        public IEnumerable<PropertyListDataDTO> Get()
+        // GET: api/Resource
+        public ResourceListDTO Get()
         {
-            return property.GetProperties();
+            return file.GetResourceList();
         }
 
-        // GET: api/Property/5
+        // GET: api/Resource/5
         public string Get(int id)
         {
             return "value";
         }
 
-        // POST: api/Property
+        // POST: api/Resource
         public void Post([FromBody]string value)
         {
         }
 
-        // PUT: api/Property/5
+        // PUT: api/Resource/5
         public void Put(int id, [FromBody]string value)
         {
         }
 
-        // DELETE: api/Property/5
+        // DELETE: api/Resource/5
         public void Delete(int id)
         {
         }
@@ -44,7 +44,7 @@ namespace SDRWebAPI.Controllers
         {
             if (disposing)
             {
-                property.Dispose();
+                file.Dispose();
             }
             base.Dispose(disposing);
         }

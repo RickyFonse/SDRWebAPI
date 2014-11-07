@@ -46,8 +46,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DTO\FileDTO.cs" />
     <Compile Include="DTO\PropertyListDataDTO.cs" />
     <Compile Include="DTO\PropertyPicDTO.cs" />
+    <Compile Include="DTO\ResourceListDTO.cs" />
+    <Compile Include="Handlers\FileHandler.cs" />
     <Compile Include="Handlers\PropertyHandler.cs" />
     <Compile Include="DTO\AddressDTO.cs" />
     <Compile Include="DTO\PropertyDTO.cs" />
