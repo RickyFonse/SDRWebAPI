@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Net.Sockets;
+using System.Threading.Tasks;
 using SDRBL.DTO;
 using SDRDAL;
 
@@ -14,33 +15,94 @@ namespace SDRBL.Handlers
 
         public IEnumerable<PropertyListDataDTO> GetProperties()
         {
-            var properties = (from p in db.Properties                               
+            var properties = (from p in db.Properties
                 .Include(i => i.Addresses.Select(s => s.State))
                 .Include(i => i.PropertyPics)
                 .Where(i => i.Active)
                 .OrderBy(i => i.Price)
-                             select new PropertyListDataDTO
-            {
-                Id = p.Id,
-                Name = p.Name,
-                Price = p.Price,
-                Phone = p.Phone,
-                Beds = p.Beds,
-                Baths = p.Baths,
-                SqFt = p.SqFt,
-                Active = p.Active,
-                PropertyPicId = p.PropertyPics.FirstOrDefault().Id,//its ok just to grab the first pic, as i only want to show the first pic
-                Address1 = p.Addresses.FirstOrDefault().Address1,//just for studying purposes... Addresses should not be a list if there is only one address 
-                Address2 = p.Addresses.FirstOrDefault().Address2,
-                City = p.Addresses.FirstOrDefault().City,
-                PostalCode = p.Addresses.FirstOrDefault().PostalCode,
-                State = p.Addresses.FirstOrDefault().State.name
-            }).ToList();
+                              select new PropertyListDataDTO
+             {
+                 Id = p.Id,
+                 Name = p.Name,
+                 Price = p.Price,
+                 Phone = p.Phone,
+                 Beds = p.Beds,
+                 Baths = p.Baths,
+                 SqFt = p.SqFt,
+                 Active = p.Active,
+                 PropertyPicId = p.PropertyPics.FirstOrDefault().Id,//its ok just to grab the first pic, as i only want to show the first pic
+                 Address1 = p.Addresses.FirstOrDefault().Address1,//just for studying purposes... Addresses should not be a list if there is only one address 
+                 Address2 = p.Addresses.FirstOrDefault().Address2,
+                 City = p.Addresses.FirstOrDefault().City,
+                 PostalCode = p.Addresses.FirstOrDefault().PostalCode,
+                 State = p.Addresses.FirstOrDefault().State.name
+             }).ToList();
 
-            return properties;           
+            return properties;
         }
 
-        //#region GetPropertiesWithRelatedObjects
+        public PropertyDataDTO GetProperty(int id)
+        {
+            var property = (from p in db.Properties
+                .Include(i => i.Addresses.Select(s => s.State))
+                .Where(i => i.Id == id)
+                            select new PropertyDataDTO
+                            {
+                                Id = p.Id,
+                                Name = p.Name,
+                                Price = p.Price,
+                                Phone = p.Phone,
+                                Beds = p.Beds,
+                                Baths = p.Baths,
+                                SqFt = p.SqFt,
+                                Active = p.Active,
+                                Address1 = p.Addresses.FirstOrDefault().Address1,//just for studying purposes... Addresses should not be a list if there is only one address 
+                                Address2 = p.Addresses.FirstOrDefault().Address2,
+                                City = p.Addresses.FirstOrDefault().City,
+                                PostalCode = p.Addresses.FirstOrDefault().PostalCode,
+                                StateId = p.Addresses.FirstOrDefault().StateId
+                            }).FirstOrDefault();
+
+            return property;
+        }
+
+        public async Task<bool> SaveProperty(PropertyDataDTO propertyData)        
+        {
+            var property = new Property
+                {
+                    Id = propertyData.Id,
+                    Name = propertyData.Name,
+                    Price = propertyData.Price,
+                    Phone = propertyData.Phone,
+                    Beds = propertyData.Beds,
+                    Baths = propertyData.Baths,
+                    SqFt = propertyData.SqFt,
+                    Active = propertyData.Active,
+                };
+
+
+            if (!String.IsNullOrWhiteSpace(propertyData.Address1))
+            {           
+                var address = new Address()
+                {
+                    Address1 = propertyData.Address1,
+                    Address2 = propertyData.Address2,
+                    City = propertyData.City,
+                    PostalCode = propertyData.PostalCode,
+                    StateId = propertyData.StateId
+                };
+
+                property.Addresses.Add(address);
+            }
+
+
+            db.Properties.Add(property);
+
+            await db.SaveChangesAsync();
+
+            return true;
+        }
+        #region GetPropertiesWithRelatedObjects
         //public IEnumerable<PropertyDTO> GetPropertiesWithRelatedObjects()
         //{
         //    //var properties = from p in db.Properties
@@ -90,7 +152,8 @@ namespace SDRBL.Handlers
 
         //    return propertyDTOList;
         //}
-        //#endregion
+        #endregion
+
         #region Dispose Region
         protected void Dispose(bool disposing)
         {
@@ -109,6 +172,6 @@ namespace SDRBL.Handlers
             Dispose(true);
             GC.SuppressFinalize(this);
         }
-#endregion
+        #endregion
     }
 }

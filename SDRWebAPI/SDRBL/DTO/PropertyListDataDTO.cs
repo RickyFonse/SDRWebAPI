@@ -26,7 +26,6 @@ namespace SDRBL.DTO
             
 
             //State Info
-            public string State { get; set; }
-                
+            public string State { get; set; }                
     }
 }

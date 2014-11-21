@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
+using System.Web.Http.Description;
 using SDRBL.DTO;
 using SDRBL.Handlers;
 
@@ -14,20 +16,43 @@ namespace SDRWebAPI.Controllers
         private PropertyHandler property = new PropertyHandler();
 
         // GET: api/Property
-        public IEnumerable<PropertyListDataDTO> Get()
+        public IHttpActionResult Get()
         {
-            return property.GetProperties();
+            var properties = property.GetProperties();
+            if (properties == null)
+            {
+                return NotFound(); // Returns a NotFoundResult
+            }
+            return Ok(properties);
+            
         }
 
         // GET: api/Property/5
-        public string Get(int id)
+        public IHttpActionResult Get(int id)
         {
-            return "value";
+            var properties = property.GetProperty(id);
+            if (properties == null)
+            {
+                return NotFound(); // Returns a NotFoundResult
+            }
+            return Ok(properties); 
         }
 
         // POST: api/Property
-        public void Post([FromBody]string value)
+        //[ResponseType(typeof(PropertyDataDTO))]
+        public async Task<IHttpActionResult> Post(PropertyDataDTO propertyData)
+            //public IHttpActionResult Post(PropertyDataDTO propertyData)
+        //public void Post(PropertyDataDTO propertyData)
+        //public async Task<bool> Post(PropertyDataDTO propertyData)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            await property.SaveProperty(propertyData);
+            return Ok();
+            //return CreatedAtRoute("DefaultApi", new { id = book.Id }, dto);
+
         }
 
         // PUT: api/Property/5
