@@ -68,7 +68,9 @@ namespace SDRBL.Handlers
 
         public async Task<bool> SaveProperty(PropertyDataDTO propertyData)        
         {
-            var property = new Property
+            if (propertyData.Address1 != null)
+            {
+                var property = new Property
                 {
                     Id = propertyData.Id,
                     Name = propertyData.Name,
@@ -81,26 +83,27 @@ namespace SDRBL.Handlers
                 };
 
 
-            if (!String.IsNullOrWhiteSpace(propertyData.Address1))
-            {           
-                var address = new Address()
+                if (!String.IsNullOrWhiteSpace(propertyData.Address1))
                 {
-                    Address1 = propertyData.Address1,
-                    Address2 = propertyData.Address2,
-                    City = propertyData.City,
-                    PostalCode = propertyData.PostalCode,
-                    StateId = propertyData.StateId
-                };
+                    var address = new Address()
+                    {
+                        Address1 = propertyData.Address1,
+                        Address2 = propertyData.Address2,
+                        City = propertyData.City,
+                        PostalCode = propertyData.PostalCode,
+                        StateId = propertyData.StateId
+                    };
 
-                property.Addresses.Add(address);
+                    property.Addresses.Add(address);
+                }
+
+
+                db.Properties.Add(property);
+
+                await db.SaveChangesAsync();                
             }
-
-
-            db.Properties.Add(property);
-
-            await db.SaveChangesAsync();
-
-            return true;
+            return true;//need to properly handle when no data is coming in...dont want to return true all the time..just for study purposes ;)
+            
         }
         #region GetPropertiesWithRelatedObjects
         //public IEnumerable<PropertyDTO> GetPropertiesWithRelatedObjects()
